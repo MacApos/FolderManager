@@ -1,6 +1,9 @@
 package com;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -37,12 +40,11 @@ public class FileCabinet implements Cabinet {
     @Override
     public List<Folder> findFoldersBySize(String size) {
         Size.checkSize(size);
-        ArrayList<Folder> foldersBySize = recursivePass(folders, new ArrayList<>());
-        return filterBy(foldersBySize, Folder::getSize, size).toList();
+        return filterBy(recursivePass(folders, new ArrayList<>()), Folder::getSize, size).toList();
     }
 
     @Override
     public int count() {
-        return  recursivePass(folders, new ArrayList<>()).size();
+        return recursivePass(folders, new ArrayList<>()).size();
     }
 }

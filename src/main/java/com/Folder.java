@@ -1,6 +1,7 @@
 package com;
 
-  interface Folder {
+interface Folder {
     String getName();
+
     String getSize();
 }
