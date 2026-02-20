@@ -3,21 +3,20 @@ package com;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FolderImpl implements MultiFolder {
-    private String name;
-    private String size;
-    private List<Folder> folders;
+import static com.FolderValidator.*;
+
+public record FolderImpl(String name, String size, List<Folder> folders) implements MultiFolder {
 
     public FolderImpl(String name, String size) {
-        Size.checkSize(size);
-        this.name = name;
-        this.size = size;
-        this.folders = new ArrayList<>();
+        this(name, size, new ArrayList<>());
     }
 
     public FolderImpl(String name, String size, List<Folder> folders) {
-        this(name, size);
-        this.folders = new ArrayList<>(folders);
+        checkName(name);
+        checkSize(size);
+        this.name = name;
+        this.size = size;
+        this.folders = folders;
     }
 
     @Override

@@ -11,7 +11,7 @@ class FileCabinetTest {
     //    parent folder no. 1
     Folder documents;
     Folder januaryDocuments;
-    Folder februaryDocuments;
+    Folder topSecreteDocuments;
 
     //    parent folder no. 2
     Folder invoices;
@@ -22,9 +22,9 @@ class FileCabinetTest {
 
     @BeforeEach
     void initiateFolders() {
-        februaryDocuments = new FolderImpl("February", "medium");
+        topSecreteDocuments = new FolderImpl("February", "medium");
         januaryDocuments = new FolderImpl("January", "medium");
-        documents = new FolderImpl("Documents", "large", List.of(februaryDocuments, januaryDocuments));
+        documents = new FolderImpl("Documents", "large", List.of(topSecreteDocuments, januaryDocuments));
 
         februaryInvoices = new FolderImpl("February", "medium");
         invoices = new FolderImpl("Invoices", "large", List.of(februaryInvoices));
