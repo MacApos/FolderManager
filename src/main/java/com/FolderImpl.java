@@ -7,16 +7,13 @@ import static com.FolderValidator.*;
 
 public record FolderImpl(String name, String size, List<Folder> folders) implements MultiFolder {
 
-    public FolderImpl(String name, String size) {
-        this(name, size, new ArrayList<>());
-    }
-
-    public FolderImpl(String name, String size, List<Folder> folders) {
+    public FolderImpl {
         checkName(name);
         checkSize(size);
-        this.name = name;
-        this.size = size;
-        this.folders = folders;
+    }
+
+    public FolderImpl(String name, String size) {
+        this(name, size, new ArrayList<>());
     }
 
     @Override

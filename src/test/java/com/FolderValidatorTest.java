@@ -7,8 +7,12 @@ import static com.FolderValidator.*;
 
 class FolderValidatorTest {
     @Test
-    void givenNullOrEmptyName_whenCheckName_thanThrowException() {
+    void givenNullName_whenCheckName_thanThrowException() {
         assertThrows(IllegalArgumentException.class, () -> checkName(null));
+    }
+
+    @Test
+    void givenBlankName_whenCheckName_thanThrowException() {
         assertThrows(IllegalArgumentException.class, () -> checkName(""));
         assertThrows(IllegalArgumentException.class, () -> checkName("  "));
     }
@@ -20,15 +24,19 @@ class FolderValidatorTest {
     }
 
     @Test
-    void givenNullOrEmptySize_whenCheckSize_thanThrowException() {
+    void givenNullSize_whenCheckSize_thanThrowException() {
         assertThrows(IllegalArgumentException.class, () -> checkSize(null));
+    }
+
+    @Test
+    void givenNullOrBlankSize_whenCheckSize_thanThrowException() {
         assertThrows(IllegalArgumentException.class, () -> checkSize(""));
         assertThrows(IllegalArgumentException.class, () -> checkSize("  "));
     }
 
     @Test
     void givenInvalidName_whenCheckSize_thanThrowException() {
-        assertThrows(IllegalArgumentException.class, () -> checkSize("extra-large"));
+        assertThrows(IllegalArgumentException.class, () -> checkSize("extra_large"));
         assertDoesNotThrow(() -> checkSize("medium"));
     }
 }

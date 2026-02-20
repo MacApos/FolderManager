@@ -9,7 +9,7 @@ public class FolderValidator {
 
     private FolderValidator() {}
 
-    private static void isNullOrEmpty(String field, RuntimeException exception) {
+    private static void isNullOrBlank(String field, RuntimeException exception) {
         if (field == null || field.isBlank()) {
             throw exception;
         }
@@ -17,7 +17,7 @@ public class FolderValidator {
 
     public static void checkName(String name) {
         var exception = new IllegalArgumentException("Invalid folder name!");
-        isNullOrEmpty(name, exception);
+        isNullOrBlank(name, exception);
         if (name.contains("/")) {
             throw exception;
         }
@@ -25,7 +25,7 @@ public class FolderValidator {
 
     public static void checkSize(String size) {
         var exception = new IllegalArgumentException("Invalid folder size!");
-        isNullOrEmpty(size, exception);
+        isNullOrBlank(size, exception);
         try {
             Size.valueOf(size.toUpperCase());
         } catch (Exception e) {
