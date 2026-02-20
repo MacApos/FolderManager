@@ -3,7 +3,8 @@ package com;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.FolderValidator.*;
+import static com.FolderValidator.checkName;
+import static com.FolderValidator.checkSize;
 
 public record FolderImpl(String name, String size, List<Folder> folders) implements MultiFolder {
 
@@ -30,5 +31,4 @@ public record FolderImpl(String name, String size, List<Folder> folders) impleme
     public List<Folder> getFolders() {
         return folders;
     }
-
 }

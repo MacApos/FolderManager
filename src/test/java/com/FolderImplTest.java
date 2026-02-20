@@ -6,16 +6,16 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class FolderImplTest {
-    Folder documents;
-    Folder januaryDocuments;
+    private FolderImpl documents;
+    private FolderImpl generalDocuments;
 
     @BeforeEach
     public void initiateFolders() {
-        januaryDocuments = new FolderImpl("January", "medium");
-        documents = new FolderImpl("Documents", "large", List.of(januaryDocuments));
+        generalDocuments = new FolderImpl("General", "MEDIUM");
+        documents = new FolderImpl("Documents", "LARGE", List.of(generalDocuments));
     }
 
     @Test
@@ -49,24 +49,43 @@ class FolderImplTest {
     @Test
     void givenInvalidSize_whenInitiatingFolderImpl_thanThrowException() {
         assertThrows(IllegalArgumentException.class,
-                     () -> new FolderImpl("Documents", "extra_large", new ArrayList<>()));
+                     () -> new FolderImpl("Documents", "EXTRA_LARGE", new ArrayList<>()));
     }
-
 
     @Test
     void givenValidArguments_whenInitiatingFolderImpl_thanInitiateFolderImpl() {
-        new FolderImpl("Documents", "large");
+        assertNotNull(documents);
     }
 
     @Test
     void getName() {
+        assertEquals("General", generalDocuments.getName());
+    }
+
+    @Test
+    void name() {
+        assertEquals("Documents", documents.name());
     }
 
     @Test
     void getSize() {
+        assertEquals("LARGE", documents.getSize());
+    }
+
+    @Test
+    void size() {
+        assertEquals("MEDIUM", generalDocuments.getSize());
     }
 
     @Test
     void getFolders() {
+        assertIterableEquals(List.of(generalDocuments), documents.getFolders());
     }
+
+    @Test
+    void folders() {
+        assertIterableEquals(new ArrayList<>(), generalDocuments.getFolders());
+    }
+
+
 }

@@ -27,7 +27,7 @@ public class FolderValidator {
         var exception = new IllegalArgumentException("Invalid folder size!");
         isNullOrBlank(size, exception);
         try {
-            Size.valueOf(size.toUpperCase());
+            Size.valueOf(size);
         } catch (Exception e) {
             throw exception;
         }

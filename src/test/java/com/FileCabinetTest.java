@@ -6,42 +6,55 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 class FileCabinetTest {
-    FileCabinet fileCabinet;
+    private FileCabinet fileCabinet;
 
-    //    parent folder no. 1
-    Folder documents;
-    Folder januaryDocuments;
-    Folder topSecreteDocuments;
+    private FolderImpl documents;
+    private FolderImpl generalDocuments;
+    private FolderImpl topSecreteDocuments;
 
-    //    parent folder no. 2
-    Folder invoices;
-    Folder februaryInvoices;
+    private FolderImpl invoices;
+    private FolderImpl generalInvoices;
+    private FolderImpl standardInvoices;
 
-    //    empty folder
-    Folder complains = new FolderImpl("Complains", "small");
+    private FolderImpl complains;
+    private FolderImpl general;
 
     @BeforeEach
-    void initiateFolders() {
-        topSecreteDocuments = new FolderImpl("February", "medium");
-        januaryDocuments = new FolderImpl("January", "medium");
-        documents = new FolderImpl("Documents", "large", List.of(topSecreteDocuments, januaryDocuments));
+    void initiateDocuments() {
+        generalDocuments = new FolderImpl("General", "MEDIUM");
+        topSecreteDocuments = new FolderImpl("TopSecrete", "SMALL");
+        documents = new FolderImpl("Documents", "LARGE", List.of(topSecreteDocuments, generalDocuments));
+    }
 
-        februaryInvoices = new FolderImpl("February", "medium");
-        invoices = new FolderImpl("Invoices", "large", List.of(februaryInvoices));
+    @BeforeEach
+    void initiateInvoices() {
+        generalInvoices = new FolderImpl("General", "SMALL");
+        generalInvoices = new FolderImpl("General", "SMALL");
+        invoices = new FolderImpl("Invoices", "LARGE", List.of(generalInvoices));
+    }
 
-        complains = new FolderImpl("Complains", "small");
+    @BeforeEach
+    void initiateOtherFolders(){
+        complains = new FolderImpl("Complains", "SMALL");
+        general = new FolderImpl("General", "LARGE");
+    }
 
+    @BeforeEach
+    void initiateFileCabinet(){
         fileCabinet = new FileCabinet(List.of(documents, invoices, complains));
     }
 
     @Test
-    void findFolderByName() {
-        fileCabinet.findFolderByName("Invoices");
-    }
+    void givenNullName_whenFindFolderByName_thanThrowException() {}
 
     @Test
-    void findFoldersBySize() {
-    }
+    void givenBlankName_whenFindFolderByName_thanThrowException() {}
+
+    @Test
+    void givenNullSize_whenFindFoldersBySize_thanThrowException() {}
+
+    @Test
+    void givenBlankSize_whenFindFoldersBySize_thanThrowException() {}
 
     @Test
     void count() {
