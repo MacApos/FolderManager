@@ -15,7 +15,7 @@ public record FileCabinet(List<Folder> folders) implements Cabinet {
     @Override
     public Optional<Folder> findFolderByName(String name) {
         checkName(name);
-        return filterBy(Folder::getName,name).findAny();
+        return filterBy(Folder::getName, name).findAny();
     }
 
     @Override
@@ -32,8 +32,8 @@ public record FileCabinet(List<Folder> folders) implements Cabinet {
     private <T> Stream<Folder> filterBy(Function<Folder, T> extractionFunction, T field) {
         var flatFolders = recursivePass(folders, new ArrayList<>());
         return flatFolders.stream()
-                .parallel()
-                .filter(folder -> Objects.equals(extractionFunction.apply(folder), field));
+                          .parallel()
+                          .filter(folder -> Objects.equals(extractionFunction.apply(folder), field));
     }
 
     private ArrayList<Folder> recursivePass(List<Folder> folders, ArrayList<Folder> foundFolders) {
@@ -45,5 +45,4 @@ public record FileCabinet(List<Folder> folders) implements Cabinet {
         }
         return foundFolders;
     }
-
 }

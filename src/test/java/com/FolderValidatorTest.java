@@ -2,8 +2,10 @@ package com;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static com.FolderValidator.*;
+import static com.FolderValidator.checkName;
+import static com.FolderValidator.checkSize;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class FolderValidatorTest {
     @Test
@@ -14,7 +16,7 @@ class FolderValidatorTest {
     @Test
     void givenBlankName_whenCheckName_thanThrowException() {
         assertThrows(IllegalArgumentException.class, () -> checkName(""));
-        assertThrows(IllegalArgumentException.class, () -> checkName("  "));
+        assertThrows(IllegalArgumentException.class, () -> checkName(" "));
     }
 
     @Test
@@ -31,12 +33,12 @@ class FolderValidatorTest {
     @Test
     void givenNullOrBlankSize_whenCheckSize_thanThrowException() {
         assertThrows(IllegalArgumentException.class, () -> checkSize(""));
-        assertThrows(IllegalArgumentException.class, () -> checkSize("  "));
+        assertThrows(IllegalArgumentException.class, () -> checkSize(" "));
     }
 
     @Test
     void givenInvalidName_whenCheckSize_thanThrowException() {
-        assertThrows(IllegalArgumentException.class, () -> checkSize("extra_large"));
-        assertDoesNotThrow(() -> checkSize("medium"));
+        assertThrows(IllegalArgumentException.class, () -> checkSize("EXTRA_LARGE"));
+        assertDoesNotThrow(() -> checkSize("MEDIUM"));
     }
 }

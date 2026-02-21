@@ -8,48 +8,48 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class FolderImplTest {
-    private FolderImpl documents;
-    private FolderImpl generalDocuments;
+class MultiFolderImplTest {
+    private MultiFolderImpl documents;
+    private MultiFolderImpl generalDocuments;
 
     @BeforeEach
     public void initiateFolders() {
-        generalDocuments = new FolderImpl("General", "MEDIUM");
-        documents = new FolderImpl("Documents", "LARGE", List.of(generalDocuments));
+        generalDocuments = new MultiFolderImpl("General", "MEDIUM");
+        documents = new MultiFolderImpl("Documents", "LARGE", List.of(generalDocuments));
     }
 
     @Test
     void givenNullName_whenInitiatingFolderImpl_thanThrowException() {
-        assertThrows(IllegalArgumentException.class, () -> new FolderImpl(null, "large", new ArrayList<>()));
+        assertThrows(IllegalArgumentException.class, () -> new MultiFolderImpl(null, "large", new ArrayList<>()));
     }
 
     @Test
     void givenBlankName_whenInitiatingFolderImpl_thanThrowException() {
-        assertThrows(IllegalArgumentException.class, () -> new FolderImpl("  ", "large", new ArrayList<>()));
+        assertThrows(IllegalArgumentException.class, () -> new MultiFolderImpl(" ", "large", new ArrayList<>()));
     }
 
     @Test
     void givenInvalidName_whenInitiatingFolderImpl_thanThrowException() {
         assertThrows(IllegalArgumentException.class,
-                     () -> new FolderImpl("new/folder", "large", new ArrayList<>()));
+                     () -> new MultiFolderImpl("new/folder", "large", new ArrayList<>()));
     }
 
     @Test
     void givenNullSize_whenInitiatingFolderImpl_thanThrowException() {
         assertThrows(IllegalArgumentException.class,
-                     () -> new FolderImpl("Documents", null, new ArrayList<>()));
+                     () -> new MultiFolderImpl("Documents", null, new ArrayList<>()));
     }
 
     @Test
     void givenBlankSize_whenInitiatingFolderImpl_thanThrowException() {
         assertThrows(IllegalArgumentException.class,
-                     () -> new FolderImpl("Documents", "  ", new ArrayList<>()));
+                     () -> new MultiFolderImpl("Documents", " ", new ArrayList<>()));
     }
 
     @Test
     void givenInvalidSize_whenInitiatingFolderImpl_thanThrowException() {
         assertThrows(IllegalArgumentException.class,
-                     () -> new FolderImpl("Documents", "EXTRA_LARGE", new ArrayList<>()));
+                     () -> new MultiFolderImpl("Documents", "EXTRA_LARGE", new ArrayList<>()));
     }
 
     @Test
@@ -86,6 +86,4 @@ class FolderImplTest {
     void folders() {
         assertIterableEquals(new ArrayList<>(), generalDocuments.getFolders());
     }
-
-
 }

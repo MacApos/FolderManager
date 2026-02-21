@@ -6,14 +6,14 @@ import java.util.List;
 import static com.FolderValidator.checkName;
 import static com.FolderValidator.checkSize;
 
-public record FolderImpl(String name, String size, List<Folder> folders) implements MultiFolder {
+public record MultiFolderImpl(String name, String size, List<Folder> folders) implements MultiFolder {
 
-    public FolderImpl {
+    public MultiFolderImpl {
         checkName(name);
         checkSize(size);
     }
 
-    public FolderImpl(String name, String size) {
+    public MultiFolderImpl(String name, String size) {
         this(name, size, new ArrayList<>());
     }
 
