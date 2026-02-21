@@ -19,41 +19,41 @@ class MultiFolderImplTest {
     }
 
     @Test
-    void givenNullName_whenInitiatingFolderImpl_thanThrowException() {
+    void givenNullName_whenInitiatingFolderImpl_thenThrowException() {
         assertThrows(IllegalArgumentException.class, () -> new MultiFolderImpl(null, "large", new ArrayList<>()));
     }
 
     @Test
-    void givenBlankName_whenInitiatingFolderImpl_thanThrowException() {
+    void givenBlankName_whenInitiatingFolderImpl_thenThrowException() {
         assertThrows(IllegalArgumentException.class, () -> new MultiFolderImpl(" ", "large", new ArrayList<>()));
     }
 
     @Test
-    void givenInvalidName_whenInitiatingFolderImpl_thanThrowException() {
+    void givenInvalidName_whenInitiatingFolderImpl_thenThrowException() {
         assertThrows(IllegalArgumentException.class,
                      () -> new MultiFolderImpl("new/folder", "large", new ArrayList<>()));
     }
 
     @Test
-    void givenNullSize_whenInitiatingFolderImpl_thanThrowException() {
+    void givenNullSize_whenInitiatingFolderImpl_thenThrowException() {
         assertThrows(IllegalArgumentException.class,
                      () -> new MultiFolderImpl("Documents", null, new ArrayList<>()));
     }
 
     @Test
-    void givenBlankSize_whenInitiatingFolderImpl_thanThrowException() {
+    void givenBlankSize_whenInitiatingFolderImpl_thenThrowException() {
         assertThrows(IllegalArgumentException.class,
                      () -> new MultiFolderImpl("Documents", " ", new ArrayList<>()));
     }
 
     @Test
-    void givenInvalidSize_whenInitiatingFolderImpl_thanThrowException() {
+    void givenInvalidSize_whenInitiatingFolderImpl_thenThrowException() {
         assertThrows(IllegalArgumentException.class,
                      () -> new MultiFolderImpl("Documents", "EXTRA_LARGE", new ArrayList<>()));
     }
 
     @Test
-    void givenValidArguments_whenInitiatingFolderImpl_thanInitiateFolderImpl() {
+    void givenValidArguments_whenInitiatingFolderImpl_thenInitiateFolderImpl() {
         assertNotNull(documents);
     }
 

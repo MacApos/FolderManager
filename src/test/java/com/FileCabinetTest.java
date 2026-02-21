@@ -42,51 +42,51 @@ class FileCabinetTest {
     }
 
     @Test
-    void givenNullName_whenFindFolderByName_thanThrowException() {
+    void givenNullName_whenFindFolderByName_thenThrowException() {
         assertThrows(IllegalArgumentException.class, () -> fileCabinet.findFolderByName(null));
     }
 
     @Test
-    void givenBlankName_whenFindFolderByName_thanThrowException() {
+    void givenBlankName_whenFindFolderByName_thenThrowException() {
         assertThrows(IllegalArgumentException.class, () -> fileCabinet.findFolderByName(" "));
     }
 
     @Test
-    void givenInvalidName_whenFindFolderByName_thanThrowException() {
+    void givenInvalidName_whenFindFolderByName_thenThrowException() {
         assertThrows(IllegalArgumentException.class, () -> fileCabinet.findFolderByName("new/folder"));
     }
 
     @Test
-    void givenValidName_whenFindFolderByName_thanReturnFolder() {
+    void givenValidName_whenFindFolderByName_thenReturnFolder() {
         Optional<Folder> folderByName = fileCabinet.findFolderByName("Invoices");
         assertTrue(folderByName.isPresent());
         assertEquals(folderByName.get(), invoices);
     }
 
     @Test
-    void givenRecurringName_whenFindFolderByName_thanReturnAnyFolder() {
+    void givenRecurringName_whenFindFolderByName_thenReturnAnyFolder() {
         Optional<Folder> folderByName = fileCabinet.findFolderByName("Documents");
         assertTrue(folderByName.isPresent());
         assertThat(folderByName.get(), anyOf(is(documents), is(otherDocuments)));
     }
 
     @Test
-    void givenNullSize_whenFindFoldersBySize_thanThrowException() {
+    void givenNullSize_whenFindFoldersBySize_thenThrowException() {
         assertThrows(IllegalArgumentException.class, () -> fileCabinet.findFoldersBySize(null));
     }
 
     @Test
-    void givenBlankSize_whenFindFoldersBySize_thanThrowException() {
+    void givenBlankSize_whenFindFoldersBySize_thenThrowException() {
         assertThrows(IllegalArgumentException.class, () -> fileCabinet.findFoldersBySize(" "));
     }
 
     @Test
-    void givenInvalidSize_whenFindFoldersBySize_thanThrowException() {
+    void givenInvalidSize_whenFindFoldersBySize_thenThrowException() {
         assertThrows(IllegalArgumentException.class, () -> fileCabinet.findFoldersBySize("EXTRA_LARGE"));
     }
 
     @Test
-    void givenValidSize_whenFindFoldersBySize_thanReturnFolders() {
+    void givenValidSize_whenFindFoldersBySize_thenReturnFolders() {
         List<Folder> smallFolders = fileCabinet.findFoldersBySize("SMALL");
         assertIterableEquals(List.of(topSecreteDocuments, standardInvoices, complains, otherDocuments), smallFolders);
 
@@ -95,7 +95,7 @@ class FileCabinetTest {
     }
 
     @Test
-    void whenCount_thanReturnFolders() {
+    void whenCount_thenReturnFolders() {
         assertEquals(8, fileCabinet.count());
     }
 }

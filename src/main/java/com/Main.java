@@ -27,11 +27,9 @@ public class Main {
         out.println("\nFind folder with name of \"Invoices\":");
         fileCabinet.findFolderByName("Invoices").ifPresentOrElse(out::println,
                                                                  () -> out.println("Folder not found"));
-
         out.println("\nFind folder with name of \"Documents\":");
         fileCabinet.findFolderByName("Documents").ifPresentOrElse(out::println,
                                                                   () -> out.println("Folder not found"));
-
         out.println("\nFind folders with size SMALL:");
         fileCabinet.findFoldersBySize("SMALL").forEach(folder -> out.println(folder.getName()));
 
