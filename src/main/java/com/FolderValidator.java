@@ -1,5 +1,7 @@
 package com;
 
+import java.util.List;
+
 public class FolderValidator {
     private enum Size {
         SMALL,

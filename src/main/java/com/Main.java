@@ -5,20 +5,33 @@ import java.util.List;
 import static java.lang.System.out;
 
 public class Main {
-    public static MultiFolder publicDocuments = new MultiFolderImpl("PublicDocuments", "MEDIUM");
-    public static MultiFolder topSecreteDocuments = new MultiFolderImpl("TopSecreteDocuments", "SMALL");
-    public static MultiFolder documents = new MultiFolderImpl("Documents", "LARGE",
-                                                              List.of(topSecreteDocuments, publicDocuments));
-    public static MultiFolder otherDocuments = new MultiFolderImpl("Documents", "SMALL");
+    static FileCabinet fileCabinet;
 
-    public static MultiFolder standardInvoices = new MultiFolderImpl("StandardInvoices", "SMALL");
-    public static MultiFolder projectInvoices = new MultiFolderImpl("ProjectInvoices", "MEDIUM");
-    public static MultiFolder invoices = new MultiFolderImpl("Invoices", "LARGE",
-                                                             List.of(projectInvoices, standardInvoices));
+    static MultiFolder documents;
+    static MultiFolder publicDocuments;
+    static MultiFolder topSecreteDocuments;
+    static MultiFolder otherDocuments;
 
-    public static MultiFolder complains = new MultiFolderImpl("Complains", "SMALL");
+    static MultiFolder invoices;
+    static MultiFolder projectInvoices;
+    static MultiFolder standardInvoices;
 
-    public static FileCabinet fileCabinet = new FileCabinet(List.of(documents, invoices, complains, otherDocuments));
+    static MultiFolder complains;
+
+    static {
+        publicDocuments = new MultiFolderImpl("PublicDocuments", "MEDIUM");
+        topSecreteDocuments = new MultiFolderImpl("TopSecreteDocuments", "SMALL");
+        documents = new MultiFolderImpl("Documents", "LARGE", List.of(topSecreteDocuments, publicDocuments));
+        otherDocuments = new MultiFolderImpl("Documents", "SMALL");
+
+        standardInvoices = new MultiFolderImpl("StandardInvoices", "SMALL");
+        projectInvoices = new MultiFolderImpl("ProjectInvoices", "MEDIUM");
+        invoices = new MultiFolderImpl("Invoices", "LARGE", List.of(projectInvoices, standardInvoices));
+
+        complains = new MultiFolderImpl("Complains", "SMALL");
+
+        fileCabinet = new FileCabinet(List.of(documents, invoices, complains, otherDocuments));
+    }
 
     public static void main(String[] args) {
         out.println("Cabinet structure: ");
@@ -48,5 +61,4 @@ public class Main {
             }
         }
     }
-
 }

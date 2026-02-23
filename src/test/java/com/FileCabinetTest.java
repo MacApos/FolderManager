@@ -12,7 +12,7 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.*;
 
 class FileCabinetTest {
-    private FileCabinet fileCabinet;
+    private Cabinet fileCabinet;
 
     private MultiFolder documents;
     private MultiFolder publicDocuments;
