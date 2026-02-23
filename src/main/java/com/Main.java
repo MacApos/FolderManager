@@ -55,7 +55,7 @@ public class Main {
 
     private static void recursivePass(List<Folder> folders, String indent) {
         for (Folder folder : folders) {
-            out.println(indent + "| " + folder.getName());
+            out.printf("%s| %s - %s\n", indent, folder.getName(), folder.getSize());
             if (folder instanceof MultiFolder multiFolder) {
                 recursivePass(multiFolder.getFolders(), indent + "| ");
             }
