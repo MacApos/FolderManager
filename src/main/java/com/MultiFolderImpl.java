@@ -11,7 +11,7 @@ public record MultiFolderImpl(String name, String size, List<Folder> folders) im
         checkName(name);
         checkSize(size);
         checkFoldersForDuplicates(folders);
-        checkFoldersSize(size, folders);
+        checkFoldersSize(size,folders);
     }
 
     public MultiFolderImpl(String name, String size) {

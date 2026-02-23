@@ -10,80 +10,79 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MultiFolderImplTest {
     private MultiFolderImpl documents;
-    private MultiFolderImpl generalDocuments;
+    private MultiFolder publicDocuments;
+    private MultiFolder topSecreteDocuments;
 
-    @BeforeEach
-    public void initiateFolders() {
-        generalDocuments = new MultiFolderImpl("General", "MEDIUM");
-        documents = new MultiFolderImpl("Documents", "LARGE", List.of(generalDocuments));
+    @BeforeEach public void initiateFolders() {
+        publicDocuments = new MultiFolderImpl("PublicDocuments", "MEDIUM");
+        topSecreteDocuments = new MultiFolderImpl("TopSecreteDocuments", "SMALL");
+        documents = new MultiFolderImpl("Documents", "LARGE", List.of(publicDocuments, topSecreteDocuments));
     }
 
-    @Test
-    void givenNullName_whenInitiatingFolderImpl_thenThrowException() {
-        assertThrows(IllegalArgumentException.class, () -> new MultiFolderImpl(null, "large", new ArrayList<>()));
+    @Test void givenNullName_whenInitiatingMultiFolderImpl_thenThrowException() {
+        assertThrows(IllegalArgumentException.class, () -> new MultiFolderImpl(null, "LARGE", new ArrayList<>()));
     }
 
-    @Test
-    void givenBlankName_whenInitiatingFolderImpl_thenThrowException() {
-        assertThrows(IllegalArgumentException.class, () -> new MultiFolderImpl(" ", "large", new ArrayList<>()));
+    @Test void givenBlankName_whenInitiatingMultiFolderImpl_thenThrowException() {
+        assertThrows(IllegalArgumentException.class, () -> new MultiFolderImpl(" ", "LARGE", new ArrayList<>()));
     }
 
-    @Test
-    void givenInvalidName_whenInitiatingFolderImpl_thenThrowException() {
+    @Test void givenInvalidName_whenInitiatingMultiFolderImpl_thenThrowException() {
         assertThrows(IllegalArgumentException.class,
-                     () -> new MultiFolderImpl("new/folder", "large", new ArrayList<>()));
+                     () -> new MultiFolderImpl("new/folder", "LARGE", new ArrayList<>()));
     }
 
-    @Test
-    void givenNullSize_whenInitiatingFolderImpl_thenThrowException() {
-        assertThrows(IllegalArgumentException.class,
-                     () -> new MultiFolderImpl("Documents", null, new ArrayList<>()));
+    @Test void givenNullSize_whenInitiatingMultiFolderImpl_thenThrowException() {
+        assertThrows(IllegalArgumentException.class, () -> new MultiFolderImpl("Documents", null, new ArrayList<>()));
     }
 
-    @Test
-    void givenBlankSize_whenInitiatingFolderImpl_thenThrowException() {
-        assertThrows(IllegalArgumentException.class,
-                     () -> new MultiFolderImpl("Documents", " ", new ArrayList<>()));
+    @Test void givenBlankSize_whenInitiatingMultiFolderImpl_thenThrowException() {
+        assertThrows(IllegalArgumentException.class, () -> new MultiFolderImpl("Documents", " ", new ArrayList<>()));
     }
 
-    @Test
-    void givenInvalidSize_whenInitiatingFolderImpl_thenThrowException() {
+    @Test void givenInvalidSize_whenInitiatingMultiFolderImpl_thenThrowException() {
         assertThrows(IllegalArgumentException.class,
                      () -> new MultiFolderImpl("Documents", "EXTRA_LARGE", new ArrayList<>()));
     }
 
-    @Test
-    void givenValidArguments_whenInitiatingFolderImpl_thenInitiateFolderImpl() {
+    @Test void givenFoldersWithDuplicates_whenInitiatingMultiFolderImpl_thenThrowException() {
+        assertThrows(IllegalArgumentException.class,
+                     () -> new MultiFolderImpl("Documents", "LARGE",
+                                               List.of(publicDocuments, publicDocuments,
+                                                       topSecreteDocuments)));
+    }
+
+    @Test void givenTooLargeOrEqualSizeFolder_whenInitiatingMultiFolderImpl_thenThrowException() {
+        assertThrows(IllegalArgumentException.class,
+                     () -> new MultiFolderImpl("Documents", "SMALL", List.of(publicDocuments,
+                                                                             topSecreteDocuments)));
+    }
+
+    @Test void givenValidArguments_whenInitiatingMultiFolderImpl_thenInitiateMultiFolderImpl() {
         assertNotNull(documents);
     }
 
-    @Test
-    void getName() {
-        assertEquals("General", generalDocuments.getName());
+    @Test void getName() {
+        assertEquals("PublicDocuments", publicDocuments.getName());
     }
 
-    @Test
-    void name() {
+    @Test void name() {
         assertEquals("Documents", documents.name());
     }
 
-    @Test
-    void getSize() {
+    @Test void getSize() {
+        assertEquals("MEDIUM", publicDocuments.getSize());
+    }
+
+    @Test void size() {
         assertEquals("LARGE", documents.getSize());
     }
 
-    @Test
-    void size() {
-        assertEquals("MEDIUM", generalDocuments.getSize());
+    @Test void getFolders() {
+        assertIterableEquals(new ArrayList<>(), publicDocuments.getFolders());
     }
 
-    @Test
-    void getFolders() {
-        assertIterableEquals(List.of(generalDocuments), documents.getFolders());
-    }
-
-    @Test
-    void folders() {
-        assertIterableEquals(new ArrayList<>(), generalDocuments.getFolders());
+    @Test void folders() {
+        assertIterableEquals(List.of(publicDocuments, topSecreteDocuments), documents.getFolders());
     }
 }
