@@ -2,8 +2,9 @@ package com;
 
 import org.junit.jupiter.api.Test;
 
-import static com.FolderValidator.checkName;
-import static com.FolderValidator.checkSize;
+import java.util.List;
+
+import static com.FolderValidator.*;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -40,5 +41,14 @@ class FolderValidatorTest {
     void givenInvalidName_whenCheckSize_thenThrowException() {
         assertThrows(IllegalArgumentException.class, () -> checkSize("EXTRA_LARGE"));
         assertDoesNotThrow(() -> checkSize("MEDIUM"));
+    }
+
+    @Test
+    void givenInvalidFolders_whenCheckFolder_thenThrowException(){
+        MultiFolderImpl topSecreteDocuments = new MultiFolderImpl("TopSecreteDocuments", "MEDIUM");
+
+        MultiFolderImpl documents = new MultiFolderImpl("Documents", "MEDIUM", List.of(topSecreteDocuments));
+
+        checkFoldersSize(documents.size(), documents.folders());
     }
 }

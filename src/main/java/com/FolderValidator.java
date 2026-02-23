@@ -1,12 +1,19 @@
 package com;
 
+import java.util.HashSet;
 import java.util.List;
 
 public class FolderValidator {
     private enum Size {
-        SMALL,
-        MEDIUM,
-        LARGE
+        SMALL(0),
+        MEDIUM(1),
+        LARGE(2);
+
+        private final int order;
+
+        Size(int order) {
+            this.order = order;
+        }
     }
 
     private FolderValidator() {}
@@ -32,6 +39,24 @@ public class FolderValidator {
             Size.valueOf(size);
         } catch (Exception e) {
             throw exception;
+        }
+    }
+
+    public static void checkFoldersForDuplicates(List<Folder> folders) {
+        HashSet<Folder> hashSet = new HashSet<>();
+        for (Folder folder : folders) {
+            if (!hashSet.add(folder)) {
+                throw new IllegalArgumentException("Duplicate folder name!");
+            }
+        }
+    }
+
+    public static void checkFoldersSize(String size, List<Folder> folders) {
+        int order = Size.valueOf(size).order;
+        for (Folder folder : folders) {
+            if (order <= Size.valueOf(folder.getSize()).order) {
+                throw new IllegalArgumentException("Too large folder size!");
+            }
         }
     }
 }

@@ -3,14 +3,15 @@ package com;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.FolderValidator.checkName;
-import static com.FolderValidator.checkSize;
+import static com.FolderValidator.*;
 
 public record MultiFolderImpl(String name, String size, List<Folder> folders) implements MultiFolder {
 
     public MultiFolderImpl {
         checkName(name);
         checkSize(size);
+        checkFoldersForDuplicates(folders);
+        checkFoldersSize(size, folders);
     }
 
     public MultiFolderImpl(String name, String size) {
